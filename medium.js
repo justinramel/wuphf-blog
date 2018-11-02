@@ -1,6 +1,6 @@
 const fs = require('fs')
 const parseMD = require('parse-md').default
-const axios = require('axios')
+const axiosLib = require('axios')
 
 const config = require('./config')
 const token = config.medium.token
@@ -14,10 +14,25 @@ const {
 console.log(metadata)
 console.log(content)
 
-axios({
-  method: 'get',
-  url: 'https://api.medium.com/v1/me',
+const axios = axiosLib.create({
+  baseURL: 'https://api.medium.com/v1',
   headers: {
     'Authorization': `Bearer ${token}`
   }
-}).then(response => console.log(response.data.data.id))
+});
+
+axios({
+    method: 'get',
+    url: '/me'
+  })
+  .then(response => response.data.data.id)
+  .then(id => axios({
+    method: 'post',
+    url: `/users/${id}/posts`,
+    data: {
+      title: metadata.title,
+      contentFormat: 'markdown',
+      content,
+      publishStatus: 'draft'
+    }
+  }))
