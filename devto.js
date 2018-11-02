@@ -26,9 +26,9 @@ async function run() {
     await page.waitForNavigation()
     await page.waitForNavigation()
     await page.click('#write-link')
+    await page.waitForNavigation()
     await page.click('#article_body_markdown')
     await page.keyboard.type(fileContents)
-    // await page.$eval('#article_body_markdown', el => el.value = fileContents)
 }
 
 run()
