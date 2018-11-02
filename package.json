@@ -1,0 +1,22 @@
+{
+  "name": "wuphf-blog",
+  "version": "1.0.0",
+  "description": "push blog posts to multiple platforms",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "wuphf-blog"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "Justin Ramel",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "puppeteer": "^1.10.0"
+  }
+}
