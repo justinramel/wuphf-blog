@@ -23,12 +23,18 @@ async function run() {
     await page.click('#password')
     await page.keyboard.type(config.password)
     await page.click('input[type=submit]')
-    await page.waitForNavigation()
-    await page.waitForNavigation()
+    await page.waitForSelector('#write-link')
     await page.click('#write-link')
+    await page.waitForSelector('#article_body_markdown')
+    await page.evaluate(() => {
+        document.querySelector('#article_body_markdown').value = ''
+    })
+    const textarea = await page.$('#article_body_markdown');
+    await textarea.type(fileContents)
+    await page.click('#article-submit')
     await page.waitForNavigation()
-    await page.click('#article_body_markdown')
-    await page.keyboard.type(fileContents)
+    browser.close()
 }
+
 
 run()
